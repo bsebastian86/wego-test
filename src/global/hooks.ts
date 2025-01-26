@@ -18,7 +18,11 @@ export const useFoods = (itemsPerPage: number = 9) => {
     },
   });
 
-  // Create categories map for quick lookup
+  /**
+   * Create categories map for quick lookup.
+   * This was done because the Food API has typos for "Dessert" and "Sushi"
+   */
+
   const categoriesMap = useMemo(
     () =>
       categories.reduce((acc: Record<string, string>, cat: FoodCategory) => {
@@ -34,6 +38,7 @@ export const useFoods = (itemsPerPage: number = 9) => {
       const term = searchTerm.toLowerCase();
       return foods.filter(
         (food) =>
+          // Filter by food name and category name
           food.name.toLowerCase().includes(term) ||
           (categoriesMap[food.categoryId] || '').toLowerCase().includes(term),
       );
@@ -41,6 +46,7 @@ export const useFoods = (itemsPerPage: number = 9) => {
     [categoriesMap, searchTerm],
   );
 
+  // Filter foods by category when clicking the Category Nav
   const filterByCategoryId = useCallback(
     (foods: Food[]) => {
       if (!activeCategoryId) return foods;
@@ -49,6 +55,11 @@ export const useFoods = (itemsPerPage: number = 9) => {
     [activeCategoryId],
   );
 
+  /**
+   * Paginate data to initially show 9 items by default.
+   * "itemsPerPage" can be passed to show more or less items.
+   * Clicking the "Show More" will append more items until all items are shown.
+   */
   const paginateData = useCallback(
     (foods: Food[]) => {
       const filteredFoods = filterBySearch(filterByCategoryId(foods));
@@ -77,6 +88,7 @@ export const useFoods = (itemsPerPage: number = 9) => {
       const data = await response.json();
       return data.foods;
     },
+    // Transform data to paginate
     select: (foods) => paginateData(filterByCategoryId(foods)),
   });
 
