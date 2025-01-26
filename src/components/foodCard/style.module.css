@@ -9,6 +9,11 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.foodCard:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .imageContainer {
@@ -63,7 +68,7 @@
 
 .name {
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .pills {

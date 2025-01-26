@@ -1,0 +1,35 @@
+@value wgyellow from '@/global/colors.module.css';
+
+.container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.categoryNav {
+  display: inline-flex;
+  justify-content: center;
+  border: 1px solid wgyellow;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.category {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.category:not(:last-child) {
+  border-right: 1px solid wgyellow;
+}
+
+.category.active {
+  background-color: wgyellow;
+  font-weight: 600;
+}
+
+.name {
+  white-space: nowrap;
+}

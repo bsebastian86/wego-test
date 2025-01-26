@@ -1,7 +1,6 @@
-.container {
-  width: 50px;
-  height: 50px;
-  background-color: blue;
+.search,
+.categories {
+  margin-bottom: 40px;
 }
 
 .showMore {

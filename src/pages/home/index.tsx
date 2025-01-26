@@ -1,6 +1,32 @@
 import { FoodGrid } from '@/components/foodGrid';
 import style from './style.module.css';
 import { Button } from '@/components/button';
+import { CategoryNav } from '@/components/categoryNav';
+import { useCallback, useEffect, useState } from 'react';
+import { SearchInput } from '@/components/searchInput';
+
+const CATEGORIES = [
+  {
+    id: '6288a89f1f0152b8c2cd512b',
+    name: 'Sushi',
+  },
+  {
+    id: '6288a89f7338764f2071a8a8',
+    name: 'Pizza',
+  },
+  {
+    id: '6288a89f70dc8cf93b71609b',
+    name: 'Hot Meals',
+  },
+  {
+    id: '6288a89fe6c2fe0b758360fe',
+    name: 'Desserts',
+  },
+  {
+    id: '6288a89fac9e970731bfaa7b',
+    name: 'Drinks',
+  },
+];
 
 const FOODS = [
   {
@@ -90,8 +116,28 @@ const FOODS = [
 ];
 
 export const Home = () => {
+  const [activeCategoryId, setActiveCategoryId] = useState('');
+
+  const handleCategoryClick = useCallback((categoryId: string) => {
+    setActiveCategoryId(categoryId);
+  }, []);
+
+  useEffect(() => {
+    console.log('activeCategoryId', activeCategoryId);
+  }, [activeCategoryId]);
+
   return (
     <>
+      <div className={style.search}>
+        <SearchInput />
+      </div>
+      <div className={style.categories}>
+        <CategoryNav
+          activeCategoryId={activeCategoryId}
+          categories={CATEGORIES}
+          onCategoryClick={handleCategoryClick}
+        />
+      </div>
       <FoodGrid foods={FOODS} />
       <div className={style.showMore}>
         <Button>+ Show More</Button>
