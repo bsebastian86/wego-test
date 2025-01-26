@@ -2,6 +2,8 @@
 
 .container {
   width: 100%;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
   overflow-x: auto;
 }
 
@@ -23,6 +25,10 @@
 
 .category:not(:last-child) {
   border-right: 1px solid wgyellow;
+}
+
+.category:not(.active):hover {
+  background-color: rgba(255, 200, 0, 0.2);
 }
 
 .category.active {

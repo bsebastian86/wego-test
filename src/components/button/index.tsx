@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import style from './style.module.css';
-import React from 'react';
+import { ReactNode } from 'react';
 
 type ButtonProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   onClick?: () => void;
   className?: string;
 };

@@ -7,13 +7,15 @@ type FoodGridProps = {
 };
 
 export const FoodGrid: FunctionComponent<FoodGridProps> = ({
-  foods,
+  foods = [],
 }: FoodGridProps) => {
   return (
     <div className={style.foodCardGrid}>
-      {foods.map((food) => (
-        <FoodCard key={food.id} {...food} />
-      ))}
+      {foods.length > 0 ? (
+        foods.map((food) => <FoodCard key={food.id} {...food} />)
+      ) : (
+        <div>No food found</div>
+      )}
     </div>
   );
 };
