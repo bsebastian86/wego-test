@@ -1,0 +1,19 @@
+@value wgyellow from '@/global/colors.module.css';
+
+.button {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: transparent;
+  padding: 14px 24px;
+  border: 1px solid wgyellow;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  background-color: wgyellow;
+  border-color: wgyellow;
+  outline: 0;
+}
