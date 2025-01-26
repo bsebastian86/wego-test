@@ -14,7 +14,7 @@ export const FoodGrid: FunctionComponent<FoodGridProps> = ({
       {foods.length > 0 ? (
         foods.map((food) => <FoodCard key={food.id} {...food} />)
       ) : (
-        <div>No food found</div>
+        <div className={style.noFood}>Sorry, no food found.</div>
       )}
     </div>
   );

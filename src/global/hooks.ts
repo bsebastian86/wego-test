@@ -1,21 +1,44 @@
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useState } from 'react';
-import { Food } from './types';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CATEGORIES_API, FOODS_API } from './constants';
+import { Food, FoodCategory } from './types';
 
 export const useFoods = (itemsPerPage: number = 9) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategoryId, setActiveCategoryId] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Fetch categories api
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const response = await fetch(CATEGORIES_API);
+      const data = await response.json();
+      return data;
+    },
+  });
+
+  // Create categories map for quick lookup
+  const categoriesMap = useMemo(
+    () =>
+      categories.reduce((acc: Record<string, string>, cat: FoodCategory) => {
+        acc[cat.id] = cat.name;
+        return acc;
+      }, {} as Record<string, string>),
+    [categories],
+  );
+
   const filterBySearch = useCallback(
     (foods: Food[]) => {
       if (!searchTerm) return foods;
-      return foods.filter((food) =>
-        food.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      const term = searchTerm.toLowerCase();
+      return foods.filter(
+        (food) =>
+          food.name.toLowerCase().includes(term) ||
+          (categoriesMap[food.categoryId] || '').toLowerCase().includes(term),
       );
     },
-    [searchTerm],
+    [categoriesMap, searchTerm],
   );
 
   const filterByCategoryId = useCallback(
@@ -29,8 +52,8 @@ export const useFoods = (itemsPerPage: number = 9) => {
   const paginateData = useCallback(
     (foods: Food[]) => {
       const filteredFoods = filterBySearch(filterByCategoryId(foods));
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
+      const startIndex = 0;
+      const endIndex = currentPage * itemsPerPage;
       const paginatedFoods = filteredFoods.slice(startIndex, endIndex);
       const totalPages = Math.ceil(filteredFoods.length / itemsPerPage);
 
@@ -46,6 +69,7 @@ export const useFoods = (itemsPerPage: number = 9) => {
     [currentPage, filterByCategoryId, filterBySearch, itemsPerPage],
   );
 
+  // Fetch foods api
   const { data: foods, isLoading } = useQuery({
     queryKey: ['foods'],
     queryFn: async () => {
@@ -56,17 +80,8 @@ export const useFoods = (itemsPerPage: number = 9) => {
     select: (foods) => paginateData(filterByCategoryId(foods)),
   });
 
-  const { data: categories } = useQuery({
-    queryKey: ['categories'],
-    queryFn: async () => {
-      const response = await fetch(CATEGORIES_API);
-      const data = await response.json();
-      return data;
-    },
-  });
-
   useEffect(() => {
-    // Reset displayed foods when category changes
+    // Reset current page when activeCategoryId changes
     if (activeCategoryId) {
       setCurrentPage(1);
     }

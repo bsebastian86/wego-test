@@ -22,8 +22,9 @@ export const Home = () => {
   const handleSearch = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value);
+      setCurrentPage(1);
     },
-    [setSearchTerm],
+    [setCurrentPage, setSearchTerm],
   );
 
   const handleShowMore = useCallback(() => {
