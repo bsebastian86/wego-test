@@ -1,6 +1,7 @@
 import { Home } from '@/pages/home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 describe('Home', () => {
   // Create a new instance of QueryClient as a provider for the Home component
@@ -41,6 +42,36 @@ describe('Home', () => {
     const grid = screen.getAllByRole('grid');
 
     expect(categories).toHaveLength(6);
+    expect(grid).toHaveLength(1);
+  });
+
+  it(`should render no food found if "Invalid Food" is searched`, async () => {
+    render(<HomeComponent />);
+
+    // Wait for the loading to disappear
+    await screen.findByRole('grid');
+
+    const searchInput = screen.getByRole('textbox');
+    expect(searchInput).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await user.type(searchInput, 'Invalid food');
+    const noFood = screen.queryByText(/no food found/i);
+    expect(noFood).toBeInTheDocument();
+  });
+
+  it(`should render Grid if "Sushi" is searched`, async () => {
+    render(<HomeComponent />);
+
+    // Wait for the loading to disappear
+    await screen.findByRole('grid');
+
+    const searchInput = screen.getByRole('textbox');
+    expect(searchInput).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await user.type(searchInput, 'Sushi');
+    const grid = screen.getAllByRole('grid');
     expect(grid).toHaveLength(1);
   });
 });
