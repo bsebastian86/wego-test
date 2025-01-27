@@ -1,6 +1,6 @@
 # Ben Sebastian's Wego Test
 
-This is Ben Sebastian's submission for the Wego Frontend Engineer position application.
+This is Ben Sebastian's submission for the Wego Frontend Engineer position.
 
 ## Project Overview
 
