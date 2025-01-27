@@ -43,7 +43,7 @@ npm run dev
 
 3. Run tests:
 ```bash
-npm run build
+npm run test
 ```
 
 ## Project Structure
