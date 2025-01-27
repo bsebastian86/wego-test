@@ -3,7 +3,7 @@ import style from './style.module.css';
 import { ReactNode } from 'react';
 
 type ButtonProps = {
-  children: ReactNode;
+  children?: ReactNode;
   onClick?: () => void;
   className?: string;
 };

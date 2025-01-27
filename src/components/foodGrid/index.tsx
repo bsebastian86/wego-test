@@ -10,7 +10,7 @@ export const FoodGrid: FunctionComponent<FoodGridProps> = ({
   foods = [],
 }: FoodGridProps) => {
   return (
-    <div className={style.foodCardGrid}>
+    <div role="grid" className={style.foodCardGrid}>
       {foods.length > 0 ? (
         foods.map((food) => <FoodCard key={food.id} {...food} />)
       ) : (

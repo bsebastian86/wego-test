@@ -15,17 +15,17 @@ export const CategoryNav = ({
 }: CategoryNavProps) => {
   return (
     <div className={style.container}>
-      <div className={style.categoryNav}>
-        <div
+      <ul className={style.categoryNav}>
+        <li
           onClick={() => onCategoryClick('')}
           className={classNames(style.category, {
             [style.active]: !activeCategoryId,
           })}
         >
           <div className={style.name}>All</div>
-        </div>
+        </li>
         {categories.map((category) => (
-          <div
+          <li
             key={category.id}
             onClick={() => onCategoryClick(category.id)}
             className={classNames(style.category, {
@@ -33,9 +33,9 @@ export const CategoryNav = ({
             })}
           >
             <div className={style.name}>{category.name}</div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
