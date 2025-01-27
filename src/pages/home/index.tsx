@@ -22,12 +22,14 @@ export const Home = () => {
   const handleSearch = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value);
+      // Reset Pagination when searching
       setCurrentPage(1);
     },
     [setCurrentPage, setSearchTerm],
   );
 
   const handleShowMore = useCallback(() => {
+    // Load more foods
     setCurrentPage((prev) => prev + 1);
   }, [setCurrentPage]);
 
