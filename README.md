@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# Ben Sebastian's Wego Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is Ben Sebastian's submission for the Wego Frontend Engineer position application.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A React-based food delivery interface that demonstrates:
+- Dynamic food catalog with filtering and pagination
+- Category-based navigation
+- Search functionality
+- Responsive grid layout
+- Modern React patterns and best practices
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React with TypeScript
+- Vite for build tooling
+- React Query for data fetching
+- CSS Modules for styling
+- Vitest and React Testing Library for testing
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Search foods by name or category
+- Filter foods by categories
+- Responsive grid layout for food cards
+- "Show More" pagination
+- Promotion tags (Gift, 1+1, Discount)
+- Rating display (rounded to 1 decimal place)
+- New item indicators
+
+## Running the Project
+
+1. Install dependencies:
+```bash
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Start development server:
+```bash
+npm run dev
 ```
+
+3. Run tests:
+```bash
+npm run build
+```
+
+## Project Structure
+
+- [components](src/components/) - Reuseable UI components
+- [pages](src/pages/) - Page components
+- [global](src/global/) - Shared types, hooks, constants
+- [tests](src/tests/) - Test suites
